@@ -10,21 +10,26 @@ data:
 
 model:
   name: resnet18     # resnet18, resnet152 
-  pretrained: true
-  feature_extract: false
+  pretrained: false
   feature_extract: false
 
 training:
   optimizer: sgd
   lr: 0.001
   momentum: 0.9
-  weight_decay: 1e-4
+  weight_decay: !!float 1e-4
   scheduler: none    # none, step, cosine, onecycle
   step_size: 10
   gamma: 0.1
-  epochs: 2
+  epochs: 30
 
 augmentation:
-  random_flip: true
+  random_flip: false
   color_jitter: false
   cutmix: false
+
+early_stopping:
+  patience: 7          # How long to wait after last time validation loss improved.
+  verbose: true        # If True, prints a message for each validation loss improvement.
+  delta: 0.0           # Minimum change in the monitored quantity to qualify as an improvement.
+  es_path: "./checkpoint.pt"  # Path for the checkpoint to be saved to.
